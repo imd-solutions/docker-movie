@@ -4,6 +4,7 @@ const GET_APPLICATION = gql`
   query application {
     application {
       name
+      version
     }
   }
 `;

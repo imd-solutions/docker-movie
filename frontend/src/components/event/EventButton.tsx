@@ -1,3 +1,5 @@
+import { images }  from "./../../constants"
+
 interface iEventButton {
   btnCss?: string;
   btnImage?: {
@@ -5,6 +7,7 @@ interface iEventButton {
     altText: string;
     imgCss: string;
   };
+  processing?: boolean;
   btnTxt?: string;
   handleOnClick: () => void;
 }
@@ -13,6 +16,7 @@ export default function EventButton({
   btnCss,
   btnImage,
   btnTxt,
+  processing,
   handleOnClick,
 }: iEventButton) {
   return (
@@ -26,7 +30,11 @@ export default function EventButton({
       ) : (
         ""
       )}
-      {btnTxt ? btnTxt : ""}
+      {
+      processing ? <img src={images.processingGif} alt="Processing Gif" width="20"/> 
+      : btnTxt ? btnTxt 
+      : ""
+      }
     </button>
   );
 }

@@ -4,10 +4,20 @@ import RegisterPage from "./pages/auth/Register";
 import LoginPage from "./pages/auth/Login";
 import Application from "./pages/application/Home";
 import ProtectedRoutes from "./ProtectedRoutes";
+import GET_APPLICATION from "./apollo/queries/ApplicationQuery";
+import { useQuery } from '@apollo/client';
+import ProcessingCircular from './components/processing/ProcessingCircular';
 
 
 export default function App() {
+
+  const { loading, error, data } = useQuery(GET_APPLICATION);
+
   return (
+  <>
+  { loading ? <ProcessingCircular colour="red" text="Loading" />
+  : error ? <p>{ error }</p> 
+  : data ? 
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -17,6 +27,10 @@ export default function App() {
           <Route path="/application" element={<Application />} />
         </Route>
       </Routes>
+      <p className="py-5 px-3">Application Name: {data.application.name } Version: {data.application.version}</p> 
     </BrowserRouter>
+   : ""
+  }
+    </>
   );
 }
