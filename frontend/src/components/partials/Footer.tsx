@@ -8,12 +8,7 @@ export default function PartialFooter({
   linkName,
   linkUrl = "#",
 }: any) {
-
-  const { loading, error, data } = useQuery(GET_APPLICATION);
-  return 
-  <>
-    {loading ? <ProcessingCircular colour="red" text="Processing" />
-    : error ?
+  return (
     <p className="mt-2 text-center text-sm text-gray-600 mt-5">
       {paragraph}{" "}
       <Link
@@ -22,8 +17,6 @@ export default function PartialFooter({
       >
         {linkName}
       </Link>
-    </p> :
-    data ? <p>{ data.application.name }</p> : "" }
-    </>
-  ;
+    </p>
+  );
 }
