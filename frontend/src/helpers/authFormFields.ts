@@ -25,14 +25,25 @@ const loginFields = [
 
 const signupFields = [
   {
-    labelText: "Name",
-    labelFor: "name",
-    id: "name",
-    name: "name",
+    labelText: "First Name",
+    labelFor: "firstname",
+    id: "firstname",
+    name: "firstname",
     type: "text",
-    autoComplete: "name",
+    autoComplete: "firstname",
     isRequired: true,
-    placeholder: "Your name",
+    placeholder: "Your firstname",
+    css: "rounded-md appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm",
+  },
+  {
+    labelText: "Last Name",
+    labelFor: "lastname",
+    id: "lastname",
+    name: "lastname",
+    type: "text",
+    autoComplete: "lastname",
+    isRequired: true,
+    placeholder: "Your lastname",
     css: "rounded-md appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm",
   },
   {

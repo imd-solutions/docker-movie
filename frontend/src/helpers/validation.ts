@@ -3,11 +3,17 @@ export const validateValues = (inputValues: any) => {
   const validEmail =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-  if (inputValues.name?.length === 0) {
-    errors.name = "Please complete the name field";
+    if (inputValues.firstname?.length === 0) {
+      errors.firstname = "Please complete the first name field";
+    }
+    if (inputValues.firstname?.length > 0 && inputValues.firstname?.length < 2) {
+      errors.firstname = "Name is too short";
+    }
+  if (inputValues.lastname?.length === 0) {
+    errors.lastname = "Please complete the last name field";
   }
-  if (inputValues.name?.length > 0 && inputValues.name?.length < 2) {
-    errors.name = "Name is too short";
+  if (inputValues.lastname?.length > 0 && inputValues.lastname?.length < 2) {
+    errors.lastname = "Name is too short";
   }
   if (!inputValues.email.match(validEmail)) {
     errors.email = "Invalid email address";
