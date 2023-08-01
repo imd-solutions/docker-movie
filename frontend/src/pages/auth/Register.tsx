@@ -9,7 +9,7 @@ import { validateValues } from "../../helpers/validation";
 import { userRegister } from "./../../services/UserService";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from '@apollo/client';
-import USER_CREATE from "../../apollo/mutations/UserMutation";
+import USER_CREATE from "../../apollo/mutations/UserCreate";
 
 const fields = signupFields;
 const fieldsState: any = {};
@@ -30,13 +30,12 @@ export default function Register() {
   };
 
 
-  const [userCreate, { data, loading, error, reset }] = useMutation(USER_CREATE, { errorPolicy: 'all',
+  const [userCreate, { loading, error, reset }] = useMutation(USER_CREATE, { errorPolicy: 'all',
   onCompleted: (data) => {
       if (data.userCreate) {
         navigate("/login");
       }
-  }, 
-  onError: () => console.log("runs on error"),
+  }
 });
 
   const completeSignUp = () => {
@@ -73,7 +72,7 @@ export default function Register() {
               </svg>
           </span>
         </div> : ""
-}
+        }
         <div className="mt-8 space-y-6">
           <div>
             {fields.map((field, i) => (

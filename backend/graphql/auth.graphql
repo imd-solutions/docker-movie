@@ -3,6 +3,11 @@ input LoginInput {
     password: String @rules(apply: ["required"], messages: { required: "Password is required."})
 }
 
+input EmailLoginInput {
+    email: String @rules(apply: ["required"], messages: { required: "Email is required."})
+    password: String @rules(apply: ["required"], messages: { required: "Password is required."})
+}
+
 input RefreshTokenInput {
     refresh_token: String
 }

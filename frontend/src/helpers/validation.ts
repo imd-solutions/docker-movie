@@ -3,28 +3,28 @@ export const validateValues = (inputValues: any) => {
   const validEmail =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-    if (inputValues.firstname?.length === 0) {
-      errors.firstname = "Please complete the first name field";
-    }
-    if (inputValues.firstname?.length > 0 && inputValues.firstname?.length < 2) {
-      errors.firstname = "Name is too short";
-    }
+  if (inputValues.firstname?.length === 0) {
+    errors.firstname = "Please complete the first name field";
+  }
+  if (inputValues.firstname?.length > 0 && inputValues.firstname?.length < 2) {
+    errors.firstname = "Name is too short";
+  }
   if (inputValues.lastname?.length === 0) {
     errors.lastname = "Please complete the last name field";
   }
   if (inputValues.lastname?.length > 0 && inputValues.lastname?.length < 2) {
     errors.lastname = "Name is too short";
   }
-  if (!inputValues.email.match(validEmail)) {
+  if (inputValues.email && !inputValues.email.match(validEmail)) {
     errors.email = "Invalid email address";
   }
-  if (inputValues.email.length === 0) {
+  if (inputValues.email?.length === 0) {
     errors.email = "Please complete the email field.";
   }
   if (inputValues.password.length === 0) {
     errors.password = "Please complete the password field.";
   }
-  if (inputValues.email.length > 0 && inputValues.email.length < 5) {
+  if (inputValues.email && inputValues.email.length > 0 && inputValues.email.length < 5) {
     errors.email = "Email is too short";
   }
   if (inputValues.password.length === 0) {
@@ -42,6 +42,12 @@ export const validateValues = (inputValues: any) => {
     inputValues.confirm_password?.length < 6
   ) {
     errors.confirm_password = "Confirm Password is too short";
+  }
+  if (inputValues.username?.length === 0) {
+    errors.username = "Please complete the email field";
+  }
+  if (inputValues.username?.length > 0 && inputValues.username?.length < 2) {
+    errors.username = "Email address is too short";
   }
 
   if (
