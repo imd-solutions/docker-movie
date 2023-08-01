@@ -30,9 +30,6 @@ docker-compose --project-name movie_dev -f docker-compose.yml run --rm phpunit -
 
 docker-compose --project-name movie_dev -f docker-compose.yml run --rm phpunit --filter XXXXXXXXXX
 
-# JEST Test
-
-docker-compose --project-name movie_dev -f docker-compose.yml run --rm jest ----
 
 # Remove a container/image
 

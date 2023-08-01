@@ -162,7 +162,6 @@ class User
         // Update the user details.
         $user->name = $args['input']['firstname'] . ' ' . $args['input']['lastname'];
         $user->email = $args['input']['email'];
-        $user->isVerified = true;
 
         // Update the user profile.
         $user->profile()->update([
@@ -176,139 +175,9 @@ class User
         $token = $user->createToken('App Access Client')->accessToken;
 
         // Return the user object.
-        return [
-            'access_token' => $token,
-            'user' => $user
-        ];
+        return $user;
     }
 
-    /**
-     * Function Case: Create an OTP for the user.
-     *
-     * @param null $rootValue Usually contains the result returned from the parent field. In this case, it is always `null`.
-     * @param array $args The arguments that were passed into the field.
-     * @param GraphQLContext|null $context Arbitrary data that is shared between all fields of a single query.
-     * @param ResolveInfo $resolveInfo Information about the query itself, such as the execution state, the field name, path to the field from the root, and more.
-     *
-     * @return mixed
-     */
-    public function createOTP($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
-    {
-        try {
-            $phoneNumber =  $args['input']['areaCode'].$args['input']['phone'];
-
-            $user = UserModel::firstOrNew([
-                "phone" => $phoneNumber
-            ]);
-
-            if(is_null($user->id)) {
-                $data = [
-                    "firstname" => "OTP",
-                    "lastname" => "User",
-                    "name" => "OTP User",
-                    "phone" => $phoneNumber,
-                    "email" => "otp-".date('ymdhis')."@test.com",
-                    "password" =>  encrypt(rand(0, 999999))
-                ];
-                $user = $this->userCreate($data);
-            }
-
-            $otp = rand(1000, 9999);
-
-            Cache::put($this->otpAuthKey($user->id), $otp, now()->addMinutes(User::OTP_MINUTES));
-
-            Notification::send($user, new UserOTPNotification('otp_sms', $otp, $phoneNumber));
-
-            return [
-                'status' => 200,
-                'message' => "That has been processed for you."
-            ];
-        }
-        catch(\Exception $e) {
-            return [
-                'status' => $e->getCode(),
-                'message' => $e->getMessage()
-            ];
-        }
-
-    }
-    /**
-     * Function Case:Confirm user OTP.
-     *
-     * @param null $rootValue Usually contains the result returned from the parent field. In this case, it is always `null`.
-     * @param array $args The arguments that were passed into the field.
-     * @param GraphQLContext|null $context Arbitrary data that is shared between all fields of a single query.
-     * @param ResolveInfo $resolveInfo Information about the query itself, such as the execution state, the field name, path to the field from the root, and more.
-     *
-     * @return mixed
-     */
-    public function confirmOTP($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
-    {
-        try {
-            $user = UserModel::where(['phone' => $args['input']['phone']])->first();
-
-            if (Cache::has($this->otpAuthKey($user->id)) && $args['input']['code'] == Cache::get($this->otpAuthKey($user->id))){
-                return [
-                    'uid' => $user->id,
-                    'status' => 200,
-                    'message' => "That OTP has been authorised."
-                ];
-            } else {
-                throw new \Exception('That OTP code is either invalid or has expired.', 422);
-            }
-        }
-        catch(\Exception $e) {
-            return [
-                'status' => $e->getCode(),
-                'message' => $e->getMessage()
-            ];
-        }
-
-    }
-
-    /**
-     * Function Case: Update the user details.
-     *
-     * @param null $rootValue Usually contains the result returned from the parent field. In this case, it is always `null`.
-     * @param array $args The arguments that were passed into the field.
-     * @param GraphQLContext|null $context Arbitrary data that is shared between all fields of a single query.
-     * @param ResolveInfo $resolveInfo Information about the query itself, such as the execution state, the field name, path to the field from the root, and more.
-     *
-     * @return mixed
-     */
-    public function socialLogin($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
-    {
-        $user = UserModel::firstOrNew([
-            "provider_id" => $args['input']['provider_id']
-        ]);
-
-        if(is_null($user->id)) {
-            $data = [
-                "firstname" => $args['input']['firstname'],
-                "lastname" => $args['input']['lastname'],
-                "name" => $args['input']['firstname'] .' ' .$args['input']['lastname'],
-                "email" => $args['input']['email'],
-                "password" => encrypt(rand(111111, 999999)),
-                "provider_id" => $args['input']['provider_id'],
-                "isVerified" => true,
-            ];
-
-            $user = $this->userCreate($data);
-        }
-
-        $token = $user->createToken('App Access Client')->accessToken;
-
-        // Return the user object.
-        return [
-            'access_token' => $token,
-            'user' => $user
-        ];
-    }
-
-    private function otpAuthKey($uid)
-    {
-        return "OTP_auth_{$uid}";
-    }
 
     private function userCreate($data)
     {
@@ -327,7 +196,6 @@ class User
             return $user;
         }
 
-        $user->isVerified = true;
         $user->provider_id = $data['provider_id'];
         $user->save();
 

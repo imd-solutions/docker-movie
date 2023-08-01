@@ -61,8 +61,8 @@ class UserTest extends TestCase
             'lastname' => $nameB[1]
         ]);
 
-        $response = $this->query('users', $this->userFragment())
-            ->assertJsonStructure([
+        $response = $this->query('users', $this->userFragment());
+        $response->assertJsonStructure([
                 'data' => [
                     'users' => [
                         [
@@ -88,8 +88,8 @@ class UserTest extends TestCase
 
         $this->assertCount(1, Profile::all());
 
-        $response = $this->query('user', ['id' => $this->user->id], $this->userFragment())
-            ->assertJsonStructure([
+        $response = $this->query('user', ['id' => $this->user->id], $this->userFragment());
+        $response->assertJsonStructure([
                 'data' => [
                     'user' => [
                         'name',
@@ -137,8 +137,8 @@ class UserTest extends TestCase
 
         $this->assertCount(1, DB::table('password_resets')->get());
 
-        $response = $this->query('validPasswordResetToken', ['input' => ['token' => $token, 'email' => $this->user->email]], $this->messageFragment())
-            ->assertJsonStructure([
+        $response = $this->query('validPasswordResetToken', ['input' => ['token' => $token, 'email' => $this->user->email]], $this->messageFragment());
+        $response->assertJsonStructure([
                 'data' => [
                     'validPasswordResetToken' => [
                         'status',
@@ -149,18 +149,5 @@ class UserTest extends TestCase
 
         $response->assertSee($this->encodeJsonResult($response['data']['validPasswordResetToken']));
 
-    }
-
-     /**
-     * Test Case: Users password request token is valid.
-     * @test
-     * @group gqlQueryUser
-     * @return void
-     */
-    public function getApplication(){
-
-        $response = $this->query('application', [], $this->applicationFragment());
-
-        dd($response);
     }
 }

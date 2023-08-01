@@ -89,8 +89,8 @@ class UserTest extends TestCase
      */
     public function canRequestNewEmailConfirmation()
     {
-        $response = $this->mutation('resendConfirmationEmail', ['email' => $this->user->email], $this->messageFragment())
-            ->assertJsonStructure([
+        $response = $this->mutation('resendConfirmationEmail', ['email' => $this->user->email], $this->messageFragment());
+        $response->assertJsonStructure([
                 'data' => [
                     'resendConfirmationEmail' => [
                         'status',
@@ -118,73 +118,18 @@ class UserTest extends TestCase
         ];
 
 
-        $response = $this->mutation('userUpdate', ['input' => $input], $this->otpFragment())
-            ->assertJsonStructure([
+        $response = $this->mutation('userUpdate', ['input' => $input], $this->userFragment());
+        $response->assertJsonStructure([
                 'data' => [
                     'userUpdate' => [
-                        'access_token',
-                        'user'
+                        'id',
+                        'name',
+                        'email',
                     ]
                 ]
             ]);
 
         $response->assertSee($this->encodeJsonResult($response['data']['userUpdate']));
-    }
-
-    /**
-     * Test Case: User can update their information.
-     * @test
-     * @group gqlMutationUser
-     * @return void
-     */
-    public function canRequestAnOTP()
-    {
-        $input = [
-            'areaCode' => '+44',
-            'phone' => '01234567890',
-        ];
-
-        $response = $this->mutation('userOTP', ['input' => $input], $this->messageFragment())
-            ->assertSuccessful()
-            ->assertJsonStructure([
-                'data' => [
-                    'userOTP' => [
-                        'status',
-                        'message'
-                    ]
-                ]
-            ]);
-
-        $response->assertSee($this->encodeJsonResult($response['data']['userOTP']));
-    }
-
-    /**
-     * Test Case: User can log into application with social login.
-     * @test
-     * @group gqlMutationUser
-     * @return void
-     */
-    public function canLoginWithSocialInformation()
-    {
-        $input = [
-            "provider_id" => "1234567890",
-            "firstname" => 'Test',
-            "lastname" => 'user',
-            "email" => 'test.user@test.com',
-        ];
-
-        $response = $this->mutation('userSocialLogin', ['input' => $input],  $this->otpFragment())
-            ->assertSuccessful()
-            ->assertJsonStructure([
-                'data' => [
-                    'userSocialLogin' => [
-                        'access_token',
-                        'user'
-                    ]
-                ]
-            ]);
-
-        $response->assertSee($this->encodeJsonResult($response['data']['userSocialLogin']));
     }
 
 }
