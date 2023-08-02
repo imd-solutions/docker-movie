@@ -1,0 +1,14 @@
+{
+  "name": "data",
+  "version": "1.0.0",
+  "description": "json server",
+  "main": "index.js",
+  "scripts": {
+    "server": "json-server --watch db.json --host 0.0.0.0"
+  },
+  "devDependencies": {   
+    "json-server": "^0.17.3"
+  },
+  "author": "",
+  "license": "ISC"
+}
