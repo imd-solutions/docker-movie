@@ -7,8 +7,11 @@ docker-compose --project-name movie_dev -f docker-compose.yml up --build
 # Set up backend
 
 docker-compose --project-name movie_dev -f docker-compose.yml run --rm composer install
+
 docker-compose --project-name movie_dev -f docker-compose.yml run --rm artisan key:generate
+
 docker-compose --project-name movie_dev -f docker-compose.yml run --rm artisan migrate:fresh --seed
+
 docker-compose --project-name movie_dev -f docker-compose.yml run --rm artisan passport:install
 
 # Artisan

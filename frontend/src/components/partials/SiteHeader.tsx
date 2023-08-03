@@ -16,7 +16,7 @@ export default function SiteHeader() {
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <Logo icon={icons.logo} text="CV Logo" />
+        <Logo icon={icons.logo} />
         <EventButton
           btnImage={{
             icon: showMenu ? icons.close_menu : icons.open_menu,
