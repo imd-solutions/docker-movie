@@ -120,6 +120,21 @@ services:
       laravel_auth_dev:
         ipv4_address: 171.0.0.9
 
+  json-server:
+    build:
+      context: ./data
+      dockerfile: Dockerfile
+    container_name: json_server_${SITE}
+    ports:
+      - 4000:4000
+    volumes:
+      - ./data/:/data/
+      - /data/node_modules
+    working_dir: /data  
+    networks:
+      laravel_auth_dev:
+        ipv4_address: 171.0.0.10
+
   phpunit:
     profiles: ["test"]
     build:
@@ -132,7 +147,7 @@ services:
     entrypoint: "vendor/bin/phpunit"
     networks:
       laravel_auth_dev:
-        ipv4_address: 171.0.0.10
+        ipv4_address: 171.0.0.11
 
 networks:
   laravel_auth_dev:
