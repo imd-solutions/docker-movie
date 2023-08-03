@@ -1,4 +1,5 @@
 import React from "react";
+import FavouriteButton from "../event/FavouriteButton";
 
 export default function MovieCard() {
   return (
@@ -12,6 +13,8 @@ export default function MovieCard() {
           />
         </div>
         <div className="p-6">
+          <FavouriteButton />
+
           <blockquote>
             <p className="text-xl">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
