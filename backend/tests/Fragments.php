@@ -70,52 +70,15 @@ trait Fragments
      * Function Case: Workshop GraphQL fragment.
      * @return array
      */
-    public function workshopFragment()
+    public function movieFragment()
     {
         return [
-          'title',
-          'slug',
-          'short_description',
-          'description',
-          'start_date',
-          'end_date',
-          'start_time',
-          'end_time',
-          'type',
-          'price',
-          'image',
-          'numbers'
-        ];
-    }
-
-    /**
-     * Function Case: Booking GraphQL fragment.
-     * @return array
-     */
-    public function bookingFragment()
-    {
-        return [
-          'firstname',
-          'lastname',
-          'email',
-          'phone',
-          'paid',
-          'confirmed',
-        ];
-    }
-
-    /**
-     * Function Case: User GraphQL fragment.
-     * @return array
-     */
-    public function otpFragment()
-    {
-        return [
-            'access_token',
-            'uid',
-            'status',
-            'message',
-            'user' => $this->userFragment()
+            'quote',
+            'movie',
+            'year',
+            'image_large_url',
+            'rating',
+            'character'
         ];
     }
 }

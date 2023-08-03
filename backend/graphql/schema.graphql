@@ -11,6 +11,7 @@ scalar Upload
 
 #import ./Type/Application.graphql
 #import ./Type/Message.graphql
+#import ./Type/Movie.graphql
 #import ./Type/Profile.graphql
 #import ./Type/TimeStamp.graphql
 #import ./Type/User.graphql
@@ -20,6 +21,7 @@ type Query {
         @field(resolver: "App\\GraphQL\\Queries\\Application@resolve")
 }
 
+#import ./Query/Movie.graphql
 #import ./Query/User.graphql
 
 type Mutation {
