@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
+import { useQuery } from "@apollo/client";
 import SiteHeader from "../../components/partials/SiteHeader";
 import MovieCard from "../../components/movies/MovieCard";
+import GET_MOVIES from "../../apollo/queries/MovieQuery";
+import LoadingCircular from "../../components/processing/LoadingCircular";
 
 export default function Home() {
-  useEffect(() => {}, []);
+  const { loading, error, data } = useQuery(GET_MOVIES);
   return (
     <>
       <SiteHeader />
@@ -15,19 +18,19 @@ export default function Home() {
           <p className="text-gray-500 font-bold mb-10 ">
             Vote for your fave quote.
           </p>
-          <div className="grid grid-cols-4 gap-5">
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-          </div>
+          {loading ? (
+            <LoadingCircular />
+          ) : error ? (
+            <p>{error}</p>
+          ) : data && data.movies.length > 0 ? (
+            <div className="grid grid-cols-4 gap-5">
+              {data.movies.map((movie, i) => (
+                <MovieCard movie={movie} key={i} />
+              ))}
+            </div>
+          ) : (
+            <p>There are no movies at present</p>
+          )}
         </div>
       </section>
     </>
