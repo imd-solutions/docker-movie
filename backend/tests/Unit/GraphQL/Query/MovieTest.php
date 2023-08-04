@@ -31,18 +31,11 @@ class MovieTest extends TestCase
         $response->assertJsonStructure([
             'data' => [
                 'movies' => [
-                    [
-                        'quote',
-                        'movie',
-                        'year',
-                        'image_large_url',
-                        'rating',
-                        'character'
-                    ]
+                    $this->movieFragment()
                 ]
             ]
         ]);
 
-    $response->assertSee($this->encodeJsonResult($response['data']['movies']));
+        $response->assertSee($this->encodeJsonResult($response['data']['movies']));
     }
 }

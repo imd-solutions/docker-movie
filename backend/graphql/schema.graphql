@@ -29,4 +29,5 @@ type Mutation {
         @field(resolver: "App\\GraphQL\\Mutations\\TimeStamp@resolve")
 }
 
+#import ./Mutations/Movie.graphql
 #import ./Mutations/User.graphql
