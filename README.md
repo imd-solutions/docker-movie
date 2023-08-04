@@ -14,6 +14,8 @@ docker-compose --project-name movie_dev -f docker-compose.yml run --rm artisan m
 
 docker-compose --project-name movie_dev -f docker-compose.yml run --rm artisan passport:install
 
+docker-compose --project-name movie_dev -f docker-compose.yml run --rm artisan passport:key
+
 # Artisan
 
 docker-compose --project-name movie_dev -f docker-compose.yml run --rm artisan -----

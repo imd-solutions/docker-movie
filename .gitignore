@@ -1,6 +1,5 @@
 /backend/.DS_Store
-/mysql/ib_logfile0
-/mysql/ibdata1
-/mysql/ibtmp1
+/mysql/*
+/!mysql/.gitignore
 .env
 .DS_Store
