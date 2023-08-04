@@ -7,7 +7,7 @@ const GET_MOVIES = gql`
         quote
         movie
         year
-        image_large_url
+        image_url
         rating
         character
     }

@@ -18,7 +18,7 @@ class MovieFactory extends Factory
             "quote" => $this->faker->sentence,
             "movie" => $this->faker->word,
             "year" => $this->faker->year,
-            "image_large_url" => $this->faker->imageUrl,
+            "image_url" => $this->faker->imageUrl,
             "rating" => $this->faker->numberBetween(1, 5),
             "character" => $this->faker->name
         ];

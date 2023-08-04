@@ -17,7 +17,7 @@ class CreateMoviesTable extends Migration
             $table->id();
             $table->string('quote');
             $table->string('movie');
-            $table->string('image_large_url')->nullable();
+            $table->string('image_url')->nullable();
             $table->string('character');
             $table->integer('year');
             $table->integer('rating')->nullable();

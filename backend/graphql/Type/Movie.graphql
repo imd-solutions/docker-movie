@@ -3,7 +3,7 @@ type Movie {
     quote: String
     movie: String
     year: Int
-    image_large_url: String
+    image_url: String
     rating: Int
     character: String
 }

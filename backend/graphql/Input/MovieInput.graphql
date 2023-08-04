@@ -19,6 +19,6 @@ input MovieInput {
             apply: ["required"]
             messages: { required: "Movie year is required." }
         )
-    image_large_url: String
+    image_url: String
     rating: Int
 }

@@ -14,7 +14,7 @@ class Movie extends Model
         "quote",
         "movie",
         "year",
-        "image_large_url",
+        "image_url",
         "rating",
         "character"
     ];
