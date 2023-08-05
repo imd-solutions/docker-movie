@@ -3,4 +3,6 @@
 extend type Mutation {
     movieCreate(input: MovieInput): Movie
         @field(resolver: "App\\GraphQL\\Mutations\\Movie@create")
+    movieApiCreate(input: [MovieInput]): [Movie]
+        @field(resolver: "App\\GraphQL\\Mutations\\Movie@apiCreate")
 }

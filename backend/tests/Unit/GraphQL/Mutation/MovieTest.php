@@ -43,6 +43,43 @@ class MovieTest extends TestCase
             ]);
 
         $response->assertSee($this->encodeJsonResult($response['data'][$method]));
-    
+
+    }
+
+    /**
+     * Test Case: Can add multiple movie quotes.
+     * @test
+     * @group gqlMutationMovie
+     * @return void
+     */
+    public function canAddMultipleMovies()
+    {
+
+        $method = 'movieApiCreate';
+        $input = [
+                [
+                    'quote' => $this->faker->sentence,
+                    'movie' => $this->faker->word,
+                    'character' => $this->faker->name,
+                    'year' => (int)$this->faker->year,
+                ],
+                [
+                    'quote' => $this->faker->sentence,
+                    'movie' => $this->faker->word,
+                    'character' => $this->faker->name,
+                    'year' => (int)$this->faker->year,
+                ]
+        ];
+
+        $response = $this->mutation($method, ['input' => $input], $this->movieFragment());
+        $response->assertJsonStructure([
+                'data' => [
+                    $method => [
+                        $this->movieFragment()
+                    ]
+                ]
+            ]);
+
+        $response->assertSee($this->encodeJsonResult($response['data'][$method]));
     }
 }

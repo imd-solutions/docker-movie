@@ -28,7 +28,7 @@ class MovieTest extends TestCase
             'quote' => $this->faker->sentence,
             'movie' => $this->faker->word,
             'character' => $this->faker->name,
-            'year' => $this->faker->year,
+            'year' => (int)$this->faker->year,
         ]);
 
         $this->assertDatabaseCount('movies', 1);
