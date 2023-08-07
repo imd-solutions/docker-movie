@@ -21,7 +21,9 @@ class Movie
     public function all($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
         // Get all the Movies.
-        $movies = MovieModel::withTrashed()->get();
+        $movies = MovieModel::withTrashed()
+            ->orderBy('rating', 'asc')
+            ->get();
 
         return $movies;
     }}

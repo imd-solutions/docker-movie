@@ -12,6 +12,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use MarvinRabe\LaravelGraphQLTest\TestGraphQL;
 use App\Models\User;
 use App\Models\Profile;
+use App\Models\Movie;
+use App\Models\Vote;
 
 class UserTest extends TestCase
 {
@@ -97,6 +99,37 @@ class UserTest extends TestCase
                         'profile' => [
                             'firstname',
                             'lastname'
+                        ]
+                    ]
+                ]
+            ]);
+
+        $response->assertSee($this->encodeJsonResult($response['data']['user']));
+    }
+
+    /**
+     * Test Case: Can get a single user from the database.
+     * @test
+     * @group gqlQueryUser
+     * @return void
+     */
+    public function canGetSingleUserVotesFromDatabase()
+    {
+        $movie = Movie::factory()->create();
+
+        Vote::factory()->create([
+            'user_id' => $this->user->id,
+            'movie_id' => $movie->id
+        ]);
+
+        $response = $this->query('user', ['id' => $this->user->id], $this->userFragment());
+        $response->assertJsonStructure([
+                'data' => [
+                    'user' => [
+                        'votes' => [
+                           [
+                            'movie_id'
+                           ]
                         ]
                     ]
                 ]

@@ -1,0 +1,4 @@
+# Vote type
+type Vote {
+    movie_id: Int
+}

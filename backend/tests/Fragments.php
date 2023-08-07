@@ -38,7 +38,10 @@ trait Fragments
             'id',
             'name',
             'email',
-            'profile' => $this->profileFragment()
+            'profile' => $this->profileFragment(),
+            'votes' => [
+                'movie_id'
+            ]
         ];
     }
 
@@ -67,7 +70,7 @@ trait Fragments
     }
 
     /**
-     * Function Case: Workshop GraphQL fragment.
+     * Function Case: Movie GraphQL fragment.
      * @return array
      */
     public function movieFragment()

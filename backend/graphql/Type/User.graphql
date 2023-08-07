@@ -9,4 +9,5 @@ type User {
     updated_at: DateTime!
     deleted_at: DateTime
     profile: Profile
+    votes: [Vote]
 }

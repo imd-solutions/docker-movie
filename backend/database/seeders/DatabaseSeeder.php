@@ -14,6 +14,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(PassportTableSeeder::class);
-        $this->call(MovieTableSeeder::class);
+        // $this->call(UserProfileTableSeeder::class);
+        // $this->call(MovieTableSeeder::class);
+        $this->call(VoteTableSeeder::class);
     }
 }

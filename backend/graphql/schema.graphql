@@ -15,6 +15,7 @@ scalar Upload
 #import ./Type/Profile.graphql
 #import ./Type/TimeStamp.graphql
 #import ./Type/User.graphql
+#import ./Type/Vote.graphql
 
 type Query {
     application: Application!

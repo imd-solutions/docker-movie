@@ -52,4 +52,14 @@ class User extends Authenticatable
     {
         return $this->hasOne(Profile::class);
     }
+
+    /**
+     * Function Case: User relationship with Votes.
+     *
+     * @return HasMany
+     */
+    public function votes()
+    {
+        return $this->hasMany(Vote::class)->select('movie_id');
+    }
 }

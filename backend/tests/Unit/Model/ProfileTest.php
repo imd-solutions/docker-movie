@@ -3,6 +3,7 @@
 namespace Tests\Unit\Model;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Schema;
 use Tests\TestCase;
 
 class ProfileTest extends TestCase
@@ -19,6 +20,19 @@ class ProfileTest extends TestCase
 
         $this->assertCount(1, $this->user::all());
 
+    }
+
+    /**
+     * Test Case: The profile database has the columns.
+     * @test
+     * @group modelVote
+     * @return void
+     */
+    public function profileHasColumns()
+    {
+        $this->assertTrue(
+            Schema::hasColumns('profiles', ['id', 'user_id', 'firstname', 'lastname']), 1
+        );
     }
 
     /**
