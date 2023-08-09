@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import FavouriteButton from "../event/FavouriteButton";
+import { UserContext } from "../../context/UserContext";
 
 interface iMoveCard {
   movie: any;
 }
 
 export default function MovieCard({ movie }: iMoveCard) {
+  const userContext = useContext(UserContext);
+
+  const movieIds = userContext.user.votes.map(function (vote) {
+    return vote.movie_id;
+  });
+
   return (
     <>
       <div className="block max-w-[18rem] rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
@@ -19,7 +26,7 @@ export default function MovieCard({ movie }: iMoveCard) {
           />
         </div>
         <div className="p-6">
-          <FavouriteButton />
+          <FavouriteButton fave={movieIds.includes(parseInt(movie.id))} />
 
           <blockquote>
             <p className="text-xl">"{movie.quote}"</p>

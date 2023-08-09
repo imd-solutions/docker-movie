@@ -1,15 +1,15 @@
 import InputText from "../../components/input/InputText";
 import { loginFields } from "../../helpers/authFormFields";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import PartialHeader from "../../components/partials/Header";
 import PartialFooter from "../../components/partials/Footer";
 import EventButton from "../../components/event/EventButton";
 import { icons } from "../../constants";
-import { userLogIn } from "./../../services/UserService";
 import { useNavigate } from "react-router-dom";
 import { validateValues } from "../../helpers/validation";
 import { useMutation } from "@apollo/client";
 import USER_LOGIN from "../../apollo/mutations/UserLogin";
+import { UserContext } from "../../context/UserContext";
 
 const fields = loginFields;
 const fieldsState: any = {};
@@ -20,6 +20,8 @@ export default function LoginPage() {
   const [errors, setErrors] = useState<any>({});
   const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
+
+  const userContext = useContext(UserContext);
 
   const handleChange = (id: string, val: string) => {
     setLoginState({ ...loginState, [id]: val });
@@ -34,6 +36,11 @@ export default function LoginPage() {
     errorPolicy: "all",
     onCompleted: (data) => {
       if (data && data.login) {
+        userContext.setUser({
+          name: data.login.user.name,
+          email: data.login.user.email,
+          votes: data.login.user.votes,
+        });
         localStorage.setItem("authUser", JSON.stringify(data.login));
         navigate("/application");
       }

@@ -1,17 +1,26 @@
-import { useState, useEffect } from "react";
+import { useContext } from "react";
 import { useQuery } from "@apollo/client";
 import SiteHeader from "../../components/partials/SiteHeader";
 import MovieCard from "../../components/movies/MovieCard";
 import GET_MOVIES from "../../apollo/queries/MovieQuery";
 import LoadingCircular from "../../components/processing/LoadingCircular";
+import { UserContext } from "../../context/UserContext";
 
 export default function Home() {
   const { loading, error, data } = useQuery(GET_MOVIES);
+
+  const userContext = useContext(UserContext);
+
   return (
     <>
       <SiteHeader />
       <section className="py-10 bg-gray-50 overflow-hidden">
         <div className="container mx-auto px-4">
+          {userContext && userContext.user ? (
+            <p>Hello {userContext.user.name}</p>
+          ) : (
+            ""
+          )}
           <h1 className="font-heading max-w-xl mb-2 text-4xl md:text-5xl text-gray-900 font-black tracking-tight">
             Movie Quotes
           </h1>

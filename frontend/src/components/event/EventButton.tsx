@@ -1,4 +1,4 @@
-import { images }  from "./../../constants"
+import { images } from "./../../constants";
 
 interface iEventButton {
   btnCss?: string;
@@ -20,21 +20,25 @@ export default function EventButton({
   handleOnClick,
 }: iEventButton) {
   return (
-    <button onClick={() => handleOnClick()} className={btnCss}>
-      {btnImage ? (
-        <img
-          src={btnImage.icon}
-          alt={btnImage.altText}
-          className={btnImage.imgCss}
-        />
-      ) : (
-        ""
-      )}
-      {
-      processing ? <img src={images.processingGif} alt="Processing Gif" width="20"/> 
-      : btnTxt ? btnTxt 
-      : ""
-      }
-    </button>
+    <>
+      <button onClick={() => handleOnClick()} className={btnCss}>
+        {btnImage ? (
+          <img
+            src={btnImage.icon}
+            alt={btnImage.altText}
+            className={btnImage.imgCss}
+          />
+        ) : (
+          ""
+        )}
+        {processing ? (
+          <img src={images.processingGif} alt="Processing Gif" width="20" />
+        ) : btnTxt ? (
+          btnTxt
+        ) : (
+          ""
+        )}
+      </button>
+    </>
   );
 }

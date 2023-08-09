@@ -7,6 +7,10 @@ const USER_LOGIN = gql`
       access_token
       user {
         name
+        email
+        votes {
+          movie_id
+        }
       }
     }
   }

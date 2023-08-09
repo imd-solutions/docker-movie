@@ -6,7 +6,6 @@ import EventButton from "../../components/event/EventButton";
 import PartialFooter from "../../components/partials/Footer";
 import { icons } from "../../constants";
 import { validateValues } from "../../helpers/validation";
-import { userRegister } from "./../../services/UserService";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import USER_CREATE from "../../apollo/mutations/UserCreate";
