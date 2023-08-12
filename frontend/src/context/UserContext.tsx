@@ -1,6 +1,7 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 type User = {
+  id: number;
   name: string;
   email: string;
   votes: any;
@@ -18,6 +19,13 @@ type UserContextProviderType = {
 
 export const UserContextProvider = ({ children }: UserContextProviderType) => {
   const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    if (localStorage.getItem("authUser")) {
+      let authUser = JSON.parse(localStorage.getItem("authUser") || "{}");
+      setUser(authUser.user);
+    }
+  }, []);
 
   return (
     <>

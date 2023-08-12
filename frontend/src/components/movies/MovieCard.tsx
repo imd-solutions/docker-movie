@@ -26,7 +26,10 @@ export default function MovieCard({ movie }: iMoveCard) {
           />
         </div>
         <div className="p-6">
-          <FavouriteButton fave={movieIds.includes(parseInt(movie.id))} />
+          <FavouriteButton
+            fave={movieIds.includes(parseInt(movie.id))}
+            movie={parseInt(movie.id)}
+          />
 
           <blockquote>
             <p className="text-xl">"{movie.quote}"</p>

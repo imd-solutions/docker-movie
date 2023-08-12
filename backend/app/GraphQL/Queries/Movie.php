@@ -22,7 +22,7 @@ class Movie
     {
         // Get all the Movies.
         $movies = MovieModel::withTrashed()
-            ->orderBy('rating', 'asc')
+            ->orderBy('rating', 'desc')
             ->get();
 
         return $movies;

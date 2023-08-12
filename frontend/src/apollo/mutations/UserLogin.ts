@@ -6,6 +6,7 @@ const USER_LOGIN = gql`
     login (input: $input) {
       access_token
       user {
+        id
         name
         email
         votes {

@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import MOVIE_VOTE from "../../apollo/mutations/MovieVote";
 import { useMutation } from "@apollo/client";
+import LoadingCircular from "../processing/LoadingCircular";
+import { UserContext } from "../../context/UserContext";
 interface iFavouriteButton {
   fave: boolean;
+  movie: number;
 }
-export default function FavouriteButton({ fave }: iFavouriteButton) {
+export default function FavouriteButton({ fave, movie }: iFavouriteButton) {
   const [isFav, setIsFav] = useState(fave);
+
+  const userContext = useContext(UserContext);
 
   const [movieVote, { loading }] = useMutation(MOVIE_VOTE, {
     errorPolicy: "all",
@@ -16,16 +21,32 @@ export default function FavouriteButton({ fave }: iFavouriteButton) {
   });
   const favouriteBtnAction = () => {
     let movieFaveState = {
-      user_id: 1,
-      movie_id: 1,
+      user_id: parseInt(userContext.user.id),
+      movie_id: movie,
     };
     setIsFav(!isFav);
+    let authUser = JSON.parse(localStorage.getItem("authUser") || "{}");
+
+    let name = "authUser";
+
+    let existing = localStorage.getItem(name);
+
+    existing = existing ? JSON.parse(existing) : {};
+
+    if (authUser.user.votes.some((movie) => movie.movie_id === movie)) {
+      console.log("YES");
+      existing["user"]["votes"].filter((movie) => movie.movie_id !== movie);
+    } else {
+      existing["user"]["votes"].push({ movie_id: movie });
+    }
+    localStorage.setItem("authUser", JSON.stringify(existing));
+
     movieVote({ variables: { input: movieFaveState } });
   };
   return (
     <>
       {loading ? (
-        <span>Processing...</span>
+        <LoadingCircular />
       ) : (
         <button style={{ color: "red" }} onClick={favouriteBtnAction}>
           <svg

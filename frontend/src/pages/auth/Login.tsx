@@ -37,6 +37,7 @@ export default function LoginPage() {
     onCompleted: (data) => {
       if (data && data.login) {
         userContext.setUser({
+          id: data.login.user.id,
           name: data.login.user.name,
           email: data.login.user.email,
           votes: data.login.user.votes,
