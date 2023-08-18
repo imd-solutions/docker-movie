@@ -1,5 +1,5 @@
 import { useState } from "react";
-import NavigationHeader from "./../navigation/Header";
+import NavigationHeader from "../navigation/Header";
 import { icons } from "../../constants";
 import { headerNavigation } from "../../helpers/navigationUrls";
 import EventButton from "../event/EventButton";
