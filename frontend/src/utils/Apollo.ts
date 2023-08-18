@@ -14,7 +14,7 @@ const errorLink = onError(({ graphqlErrors}) => {
 
 const link = from([
     errorLink,
-    new HttpLink({uri: 'http://localhost/graphql'})
+    new HttpLink({uri: process.env.REACT_APP_GRAPHQL})
 ])
 
 const authLink = setContext((_, { headers }) => {
