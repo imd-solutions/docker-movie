@@ -7,8 +7,8 @@ import ProtectedRoutes from "./ProtectedRoutes";
 import GET_APPLICATION from "./apollo/queries/ApplicationQuery";
 import { useQuery } from "@apollo/client";
 import ProcessingCircular from "./components/processing/ProcessingCircular";
-import AddMovie from "./pages/application/AddMovie";
 import { UserContextProvider } from "./context/UserContext";
+import About from "./pages/application/About";
 
 export default function App() {
   const { loading, error, data } = useQuery(GET_APPLICATION);
@@ -28,7 +28,7 @@ export default function App() {
               <Route path="/register" element={<RegisterPage />} />
               <Route element={<ProtectedRoutes />}>
                 <Route path="/application" element={<Application />} />
-                <Route path="/application/add-movie" element={<AddMovie />} />
+                <Route path="/application/about" element={<About />} />
               </Route>
             </Routes>
             <p className="py-5 px-3">

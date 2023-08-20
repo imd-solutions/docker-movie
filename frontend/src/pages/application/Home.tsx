@@ -5,6 +5,7 @@ import MovieCard from "../../components/movies/MovieCard";
 import GET_MOVIES from "../../apollo/queries/MovieQuery";
 import LoadingCircular from "../../components/processing/LoadingCircular";
 import { UserContext } from "../../context/UserContext";
+import Modal from "./../../components/notification/Modal";
 
 export default function Home() {
   const { loading, error, data } = useQuery(GET_MOVIES);
@@ -24,9 +25,10 @@ export default function Home() {
           <h1 className="font-heading max-w-xl mb-2 text-4xl md:text-5xl text-gray-900 font-black tracking-tight">
             Movie Quotes
           </h1>
-          <p className="text-gray-500 font-bold mb-10 ">
+          <p className="text-gray-500 font-bold mb-3">
             Vote for your fave quote.
           </p>
+          <Modal />
           {loading ? (
             <LoadingCircular />
           ) : error ? (

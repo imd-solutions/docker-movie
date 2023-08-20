@@ -5,6 +5,7 @@ interface iInputText {
   labelAlignLeft?: boolean;
   labelText?: string;
   labelFor?: string;
+  smallText?: string;
   name: string;
   inputType?: string;
   placeholder: string;
@@ -17,6 +18,7 @@ export default function InputText({
   inputId,
   labelText,
   labelAlignLeft,
+  smallText,
   name,
   inputType,
   placeholder,
@@ -47,6 +49,7 @@ export default function InputText({
         value={value}
         disabled={disable}
       />
+      {smallText ? <small>{smallText}</small> : null}
     </>
   );
 }

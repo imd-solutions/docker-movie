@@ -14,7 +14,7 @@ input MovieInput {
             apply: ["required"]
             messages: { required: "Movie character is required." }
         )
-    year: Int
+    year: String
         @rules(
             apply: ["required"]
             messages: { required: "Movie year is required." }

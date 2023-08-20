@@ -50,14 +50,6 @@ export default function LoginPage() {
 
   const completeSignIn = () => {
     userLogin({ variables: { input: loginState } });
-    // userLogIn(loginState)
-    //   .then((resp: any) => {
-    //     localStorage.setItem("authUser", JSON.stringify(resp.data));
-    //     navigate("/application");
-    //   })
-    //   .catch((error: any) => {
-    //     console.log("ERROR", error.response);
-    //   });
   };
 
   const closeAlert = () => reset();
